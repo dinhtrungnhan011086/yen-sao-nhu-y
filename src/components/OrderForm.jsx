@@ -22,6 +22,7 @@ function createEmptyForm(products) {
 export default function OrderForm({ defaultProduct }) {
   const { siteContent } = useSiteContent()
   const products = siteContent.products
+  const recipientEmail = siteContent.store.email
 
   const emptyForm = useMemo(() => createEmptyForm(products), [products])
 
@@ -71,9 +72,17 @@ export default function OrderForm({ defaultProduct }) {
     setStatus({ type: 'idle', message: '' })
 
     try {
-      await emailjs.send(emailJsConfig.serviceId, emailJsConfig.templateId, formData, {
-        publicKey: emailJsConfig.publicKey,
-      })
+      await emailjs.send(
+        emailJsConfig.serviceId,
+        emailJsConfig.templateId,
+        {
+          ...formData,
+          recipient_email: recipientEmail,
+        },
+        {
+          publicKey: emailJsConfig.publicKey,
+        },
+      )
 
       setStatus({
         type: 'success',
@@ -168,6 +177,7 @@ export default function OrderForm({ defaultProduct }) {
         <p>
           Đơn hàng sẽ được gửi qua EmailJS đến hộp thư quản trị. Cấu hình bằng các biến
           VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, VITE_EMAILJS_PUBLIC_KEY.
+          Trong template EmailJS, đặt To Email là {{recipient_email}} để nhận theo email cấu hình trên website.
         </p>
       </div>
 
