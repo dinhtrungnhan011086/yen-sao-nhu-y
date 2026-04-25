@@ -1,5 +1,11 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
-import { createInitialSiteContent, STORAGE_KEY, STORAGE_VERSION } from '../data/siteContent'
+import {
+  createInitialSiteContent,
+  DEFAULT_STORE_EMAIL,
+  LEGACY_DEFAULT_STORE_EMAIL,
+  STORAGE_KEY,
+  STORAGE_VERSION,
+} from '../data/siteContent'
 
 const SiteContentContext = createContext(null)
 
@@ -21,6 +27,20 @@ function mergeContent(defaultValue, storedValue) {
   return storedValue ?? defaultValue
 }
 
+function migrateStoredContent(siteContent) {
+  if (siteContent?.store?.email === LEGACY_DEFAULT_STORE_EMAIL) {
+    return {
+      ...siteContent,
+      store: {
+        ...siteContent.store,
+        email: DEFAULT_STORE_EMAIL,
+      },
+    }
+  }
+
+  return siteContent
+}
+
 function readStoredContent() {
   try {
     const rawValue = window.localStorage.getItem(STORAGE_KEY)
@@ -34,7 +54,7 @@ function readStoredContent() {
       return createInitialSiteContent()
     }
 
-    return mergeContent(createInitialSiteContent(), parsedValue.data)
+    return migrateStoredContent(mergeContent(createInitialSiteContent(), parsedValue.data))
   } catch {
     return createInitialSiteContent()
   }

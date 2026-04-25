@@ -2,6 +2,8 @@ import { createInitialProducts } from './products'
 
 export const STORAGE_KEY = 'yen-sao-hoang-kim-site-content'
 export const STORAGE_VERSION = 2
+export const LEGACY_DEFAULT_STORE_EMAIL = 'concierge@yensaohk.vn'
+export const DEFAULT_STORE_EMAIL = 'dinhtrungnhan@gmail.com'
 
 export const defaultSiteContent = {
   store: {
@@ -10,7 +12,7 @@ export const defaultSiteContent = {
     description:
       'Thương hiệu yến sào cao cấp dành cho quà tặng và chăm sóc sức khỏe.',
     phone: '0909 888 168',
-    email: 'concierge@yensaohk.vn',
+    email: DEFAULT_STORE_EMAIL,
     showroom: '68 Nguyễn Huệ, Quận 1, TP. HCM',
     address: '68 Nguyễn Huệ, Bến Nghé, Quận 1, TP. HCM',
     hours: '08:30 - 20:30, Thứ Hai đến Chủ Nhật',
