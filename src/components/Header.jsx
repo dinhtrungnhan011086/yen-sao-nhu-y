@@ -14,6 +14,8 @@ export default function Header() {
 
   if (isAuthenticated) {
     navItems.push({ to: '/quan-tri', label: 'Quản trị' })
+  } else {
+    navItems.push({ to: '/dang-nhap-admin', label: 'Đăng nhập admin' })
   }
 
   return (
