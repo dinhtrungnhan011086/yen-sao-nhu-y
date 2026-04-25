@@ -177,7 +177,7 @@ export default function OrderForm({ defaultProduct }) {
         <p>
           Đơn hàng sẽ được gửi qua EmailJS đến hộp thư quản trị. Cấu hình bằng các biến
           VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, VITE_EMAILJS_PUBLIC_KEY.
-          Trong template EmailJS, đặt To Email là {{recipient_email}} để nhận theo email cấu hình trên website.
+          Trong template EmailJS, đặt To Email là {'{{recipient_email}}'} để nhận theo email cấu hình trên website.
         </p>
       </div>
 
