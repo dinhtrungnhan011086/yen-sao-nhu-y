@@ -6,16 +6,16 @@ import { AdminAuthProvider } from './context/AdminAuthContext'
 import { SiteContentProvider } from './context/SiteContentContext'
 import './styles.css'
 
-const Router = window.location.hostname.endsWith('github.io')
-  ? HashRouter
-  : BrowserRouter
+const isGitHubPages = window.location.hostname.endsWith('github.io')
+const Router = isGitHubPages ? HashRouter : BrowserRouter
+const routerProps = isGitHubPages ? {} : { basename: import.meta.env.BASE_URL }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AdminAuthProvider>
       <SiteContentProvider>
         <Router
-          basename={import.meta.env.BASE_URL}
+          {...routerProps}
           future={{
             v7_relativeSplatPath: true,
             v7_startTransition: true,
